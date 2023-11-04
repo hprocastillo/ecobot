@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "robot-reciclador": {
+      "hosting": {
+        "schoolBotRecycler": [
+          "robot-reciclador"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "robot-reciclador"
+  }
+}

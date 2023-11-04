@@ -97,8 +97,18 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2,
+            "browserTarget": "schoolBotRecycler:build:production"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "0e3b2d72-8ff1-4da2-89d3-a81f077e810e"
   }
 }

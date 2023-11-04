@@ -1,0 +1,38 @@
+<div class="container-fluid container-xl">
+  <div class="row vh-100 text-center">
+    <!------------------------------>
+    <!-------- BRAND LOGO ---------->
+    <div class="col-6 pt-5">
+      <img class="w-50 mb-3" src="../../../assets/images/robot/smiling.png" alt="">
+      <p class="display-6 fw-medium text-success mb-0">EcoBot</p>
+    </div>
+
+    <!------------------------------>
+    <!----------- FORM ------------->
+    <div class="col-6 pt-5">
+
+      <div class="card shadow rounded border-0 p-3 w-75 m-auto text-center">
+        <p class="display-6 pt-3">Iniciar sesión</p>
+
+        <!-- GOOGLE LOGIN -->
+        <button (click)="loginGoogle()" type="button" class="btn btn-danger w-100 mb-3">
+          <i class="bi bi-google me-2"></i>
+          Continuar con google
+        </button>
+
+        <!-- GOOGLE FACEBOOK -->
+        <button type="button" class="btn btn-primary w-100 mb-3" disabled>
+          <i class="bi bi-facebook me-2"></i>
+          Continuar con facebook
+        </button>
+
+        <!-- GOOGLE APPLE -->
+        <button type="button" class="btn btn-dark w-100 mb-3" disabled>
+          <i class="bi bi-apple me-2"></i>
+          Continuar con apple
+        </button>
+
+      </div>
+    </div>
+  </div>
+</div>

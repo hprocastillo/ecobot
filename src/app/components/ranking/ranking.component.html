@@ -1,0 +1,52 @@
+<ng-container *ngIf="authService.user$ | async as firebaseUser">
+  <div class="container-fluid p-3 container-xl">
+
+    <!------------>
+    <!-- NAVBAR -->
+    <app-robot-navbar [firebaseUser]="firebaseUser"></app-robot-navbar>
+
+    <!----------->
+    <!-- TITLE -->
+    <div class="row mt-3 mb-3">
+      <div class="col-12 text-center">
+        <p class="fs-3 text-uppercase">Ranking de usuarios que más reciclan.</p>
+      </div>
+    </div>
+    <br>
+
+    <!------------->
+    <!-- CONTENT -->
+    <div class="row">
+      <div class="col-4 text-center">
+        <img class="w-50" src="assets/images/robot/smiling.png" alt="robot">
+      </div>
+
+      <div class="col-8">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr class="text-nowrap text-center">
+              <th scope="col">#</th>
+              <th scope="col">USUARIO</th>
+              <th scope="col">UNIDADES</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-nowrap text-center"
+                *ngFor="let item of listRanking | slice: (page-1) * pageSize : page * pageSize; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>{{ item.displayName }}</td>
+              <td>{{ item.amount | number }}</td>
+            </tr>
+            </tbody>
+          </table>
+          <!-- PAGINATION -->
+          <div *ngIf="listRanking.length > 9">
+            <ngb-pagination [collectionSize]="listRanking.length" [pageSize]="pageSize"
+                            [(page)]="page"></ngb-pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

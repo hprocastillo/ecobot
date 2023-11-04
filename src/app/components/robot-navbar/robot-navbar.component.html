@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-4 d-flex justify-content-start">
+    <img class="rounded-circle me-2" style="width: 32px; height: 32px" src="{{firebaseUser.photoURL}}" alt="">
+    <p class="text-muted mb-0">{{firebaseUser.displayName}}</p>
+  </div>
+
+  <div class="col-4 text-center">
+    <a class="text-muted mb-0 text-decoration-none me-3" [routerLink]="'/robot'">Inicio</a>
+    <a class="text-muted mb-0 text-decoration-none" [routerLink]="'/ranking'">Ranking</a>
+  </div>
+
+  <div class="col-4 text-end">
+    <button (click)="logout()" type="button" class="btn btn-light btn-sm mb-0">
+      <i class="bi bi-power me-2"></i>
+      Cerrar sesión
+    </button>
+  </div>
+</div>

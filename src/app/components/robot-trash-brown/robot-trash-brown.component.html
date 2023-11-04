@@ -1,0 +1,6 @@
+<img *ngIf="trashState === 'open'" class="img-fluid" src="{{openUrl}}" alt="">
+<img *ngIf="trashState === 'closed'" class="img-fluid" src="{{closedUrl}}" alt="">
+<img *ngIf="trashState === 'blocked'" class="img-fluid" src="{{blockedUrl}}" alt="">
+
+<p *ngIf="listTrashBrown.length === 0" class="mt-2 mb-0 fs-6 fw-medium">Orgánicos</p>
+<p *ngIf="listTrashBrown.length > 0" class="mt-2 mb-0 fs-6 fw-medium">Orgánicos ({{listTrashBrown.length}})</p>

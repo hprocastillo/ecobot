@@ -1,0 +1,165 @@
+<ng-container *ngIf="authService.user$ | async as firebaseUser">
+  <div class="container-fluid container-xl p-3">
+
+    <!-- NAVBAR -->
+    <app-robot-navbar [firebaseUser]="firebaseUser"></app-robot-navbar>
+
+
+    <!-- TITLE -->
+    <div class="row m-3">
+      <div class="col-12 text-center">
+        <p class="display-6 text-uppercase">Ecobot</p>
+      </div>
+    </div>
+
+
+    <!-- ROBOT STATE AND TRASH CANS -->
+    <div class="row m-3">
+
+      <!-- ROBOT STATE -->
+      <div class="col-4 text-center">
+        <app-robot-head
+          [firebaseUser]="firebaseUser"
+          [robotState]="robotState"
+          [finishAlert]="finishAlert"
+          [tokenSession]="tokenSession"
+          (totalRecycles)="getTotalRecycles($event)"
+        ></app-robot-head>
+
+        <app-robot-talking
+          *ngIf="robotTalking"
+          [robotMessage]="robotMessage"
+          [questionRecycling]="questionRecycling"
+          (answerRecycling)="getRecycling($event)"
+        ></app-robot-talking>
+      </div>
+
+      <!-- TRASH CANS -->
+      <div class="col-8">
+        <div class="row text-center">
+          <!-- BLACK -->
+          <div class="col-3"
+               #listTrashRecycledBlack="cdkDropList"
+               [cdkDropListData]="trashRecycledBlack"
+               [cdkDropListConnectedTo]="[listTrashRandomSelected]"
+               (cdkDropListDropped)="dropBlack($event)"
+               cdkDropList>
+            <app-robot-trash-black
+              [firebaseUser]="firebaseUser"
+              [finishAlert]="finishAlert"
+              [trashDropped]="trashDroppedBlack"
+              [tokenSession]="tokenSession"
+            ></app-robot-trash-black>
+          </div>
+          <!-- RED -->
+          <div class="col-3"
+               #listTrashRecycledRed="cdkDropList"
+               [cdkDropListData]="trashRecycledRed"
+               [cdkDropListConnectedTo]="[listTrashRandomSelected]"
+               (cdkDropListDropped)="dropRed($event)"
+               cdkDropList>
+            <app-robot-trash-red
+              [firebaseUser]="firebaseUser"
+              [finishAlert]="finishAlert"
+              [trashDropped]="trashDroppedRed"
+              [tokenSession]="tokenSession"
+            ></app-robot-trash-red>
+          </div>
+          <!-- GREEN -->
+          <div class="col-3"
+               #listTrashRecycledGreen="cdkDropList"
+               [cdkDropListData]="trashRecycledGreen"
+               [cdkDropListConnectedTo]="[listTrashRandomSelected]"
+               (cdkDropListDropped)="dropGreen($event)"
+               cdkDropList>
+            <app-robot-trash-green
+              [firebaseUser]="firebaseUser"
+              [finishAlert]="finishAlert"
+              [trashDropped]="trashDroppedGreen"
+              [tokenSession]="tokenSession"
+            ></app-robot-trash-green>
+          </div>
+          <!-- BROWN -->
+          <div class="col-3"
+               #listTrashRecycledBrown="cdkDropList"
+               [cdkDropListData]="trashRecycledBrown"
+               [cdkDropListConnectedTo]="[listTrashRandomSelected]"
+               (cdkDropListDropped)="dropBrown($event)"
+               cdkDropList>
+            <app-robot-trash-brown
+              [firebaseUser]="firebaseUser"
+              [finishAlert]="finishAlert"
+              [trashDropped]="trashDroppedBrown"
+              [tokenSession]="tokenSession"
+            ></app-robot-trash-brown>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!------------------------------------------->
+  <!------------- FIXED FOOTER ---------------->
+  <div class="container-fluid container-xl fixed-bottom bg-transparent">
+    <div class="row">
+      <div class="col-10 offset-1">
+        <!---------------------->
+        <!-- GET RANDOM TRASH -->
+        <div class="row mb-3">
+          <div class="col-12 text-center">
+            <ul
+              #listTrashRandomSelected="cdkDropList"
+              [cdkDropListData]="trashRandomSelected"
+              [cdkDropListConnectedTo]="[listTrashRecycledBlack, listTrashRecycledRed, listTrashRecycledGreen, listTrashRecycledBrown]"
+              (cdkDropListDropped)="drop($event)"
+              class="list-group list-group-horizontal mb-3"
+              cdkDropList>
+
+              <li cdkDrag class="list-group-item m-auto border-0 bg-transparent"
+                  *ngFor="let item of trashRandomSelected">
+                <img class="cursor-pointer" ngSrc="{{item.imageUrl}}" alt="{{item.description}}" height="100"
+                     width="100">
+                <p class="fw-medium mb-0">{{item.description}}</p>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+
+
+        <!------------->
+        <!-- BUTTONS -->
+        <div class="row">
+          <ng-container *ngIf="systemSleeping">
+            <div class="col-12">
+              <div class="text-center">
+                <img (click)="getWelcome()" class="img-fluid cursor-pointer" src="{{wakeUpUrl}}" alt="">
+                <p class="fs-6 fw-medium">Interactuar</p>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="systemRecycling">
+            <div class="col-12 d-flex justify-content-center">
+              <div class="text-center me-5">
+                <img (click)="getRandomTrash()" class="img-fluid cursor-pointer" ngSrc="{{trashCanUrl}}" alt=""
+                     height="100"
+                     width="100">
+                <p class="fs-6 fw-medium">Seleccionar Basura</p>
+              </div>
+
+              <div class="text-center">
+                <img (click)="getFinish()" class=" img-fluid cursor-pointer"
+                     src="{{exitUrl}}" alt="" height="100"
+                     width="100">
+                <p class="fs-6 fw-medium">Terminar</p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</ng-container>
