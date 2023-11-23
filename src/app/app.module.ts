@@ -58,7 +58,8 @@ import {RankingComponent} from './components/ranking/ranking.component';
       "measurementId": "G-685STPRK9B"
     })),
     provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore())
+    provideFirestore(() => getFirestore()),
+    provideFirebaseApp(() => initializeApp({"projectId":"robot-reciclador","appId":"1:958919274348:web:1d40ab42e9a7ba0aca0d49","storageBucket":"robot-reciclador.appspot.com","apiKey":"AIzaSyDUsdoW2y5DIuyD2jrMrfvL8n2ncbZagFU","authDomain":"robot-reciclador.firebaseapp.com","messagingSenderId":"958919274348","measurementId":"G-685STPRK9B"})),
   ],
   providers: [],
   bootstrap: [AppComponent]
