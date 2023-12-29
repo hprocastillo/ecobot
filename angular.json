@@ -97,8 +97,18 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2,
+            "browserTarget": "ecobot:build:production"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "b2bd2400-e821-47d7-ac2f-0e9b71e1563d"
   }
 }

@@ -1,0 +1,32 @@
+<!-- TRASH CAN CLOSED -->
+<img
+  *ngIf="trashState === 'closed'"
+  class="img-fluid"
+  ngSrc="{{closed}}"
+  alt=""
+  height="256"
+  width="256"
+>
+
+<!-- TRASH CAN CORRECT -->
+<img
+  *ngIf="trashState === 'correct'"
+  class="img-fluid"
+  ngSrc="{{correct}}"
+  alt=""
+  height="256"
+  width="256"
+>
+
+<!-- TRASH CAN WRONG -->
+<img
+  *ngIf="trashState === 'wrong'"
+  class="img-fluid"
+  ngSrc="{{wrong}}"
+  alt=""
+  height="256"
+  width="256"
+>
+
+<p *ngIf="listTrashBrown.length === 0" class="mt-2 mb-0 fs-6 fw-medium">Orgánicos</p>
+<p *ngIf="listTrashBrown.length > 0" class="mt-2 mb-0 fs-6 fw-medium">Orgánicos ({{listTrashBrown.length}})</p>

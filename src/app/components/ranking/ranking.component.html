@@ -1,0 +1,41 @@
+<ng-container *ngIf="authService.user$ | async as firebaseUser">
+
+  <app-navbar [firebaseUser]="firebaseUser"></app-navbar>
+
+  <div class="container-fluid container-xl">
+
+    <div class="row mb-3">
+      <div class="col-12 text-center">
+        <p class="display-6">Ranking de usuarios que más reciclan.</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 text-center">
+        <img ngSrc="{{image1}}" alt="robot" height="256" width="256">
+      </div>
+
+      <div class="col-7">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr class="text-nowrap text-center">
+              <th scope="col">#</th>
+              <th scope="col">USUARIO</th>
+              <th scope="col">UNIDADES</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="text-nowrap text-center">
+              <th></th>
+              <td></td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ng-container>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "robot-reciclador": {
+      "hosting": {
+        "ecobot": [
+          "robot-reciclador"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "robot-reciclador"
+  }
+}

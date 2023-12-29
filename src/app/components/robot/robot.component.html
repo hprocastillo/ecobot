@@ -1,0 +1,195 @@
+<ng-container *ngIf="authService.user$ | async as firebaseUser">
+
+  <app-navbar [firebaseUser]="firebaseUser"></app-navbar>
+
+  <div class="container-fluid container-xl">
+    <div class="row mt-3 text-center">
+      <div class="col-3">
+
+        <!--------------------------------------->
+        <!------------ ROBOT STATE -------------->
+        <div class="mb-2">
+          <img
+            class="img-fluid"
+            ngSrc="./assets/images/robot-states/{{robotState}}.png"
+            alt=""
+            height="256"
+            width="256"
+            priority=""
+          >
+        </div>
+
+        <!--------------------------------------->
+        <!------------ TRASH COUNT -------------->
+        <ng-container *ngIf="listTrashRecycled.length > 0">
+          <div class="mb-2">
+            <p class="fw-medium text-uppercase">Total Recilados: ({{listTrashRecycled.length}})</p>
+          </div>
+        </ng-container>
+
+        <!--------------------------------------->
+        <!----------- ROBOT TALKING ------------->
+        <ng-container *ngIf="robotMessage !==''">
+          <div class="card shadow rounded-5 border-0 bg-warning-subtle p-3">
+
+            <div *ngIf="robotMessage">
+              <p class="mb-0">{{robotMessage}}</p>
+            </div>
+
+            <div *ngIf="questionRecycling" class="d-flex justify-content-center mt-3">
+              <!-- BTN NOT -->
+              <button
+                (click)="getCancel()"
+                type="button"
+                class="btn btn-danger fs-5 fw-medium pt-2 pb-2 ps-3 pe-3 rounded-circle me-3"
+              >
+                No
+              </button>
+
+              <!-- BTN YES -->
+              <button
+                (click)="getRecycling()"
+                type="button"
+                class="btn btn-success fs-5 fw-medium pt-2 pb-2 ps-3 pe-3 rounded-circle"
+              >
+                Si
+              </button>
+            </div>
+
+          </div>
+        </ng-container>
+      </div>
+
+      <!--------------------------------------->
+      <!---------- TRASH CONTAINERS ----------->
+      <div class="col-9">
+        <div class="row">
+          <!-- BLACK -->
+          <div class="col-3"
+               #listTrashContainerBlack="cdkDropList"
+               [cdkDropListData]="listTrashDroppedBlack"
+               [cdkDropListConnectedTo]="[listTrashRandomSelected]"
+               (cdkDropListDropped)="dropBlack($event)"
+               cdkDropList>
+            <app-robot-trash-black
+              [trashDropped]="trashDroppedBlack"
+              [systemState]="systemState"
+              (trashRecycled)="getTrashRecycled($event)"
+            ></app-robot-trash-black>
+          </div>
+          <!-- RED -->
+          <div class="col-3"
+               #listTrashContainerRed="cdkDropList"
+               [cdkDropListData]="listTrashDroppedRed"
+               [cdkDropListConnectedTo]="[listTrashRandomSelected]"
+               (cdkDropListDropped)="dropRed($event)"
+               cdkDropList>
+            <app-robot-trash-red
+              [trashDropped]="trashDroppedRed"
+              [systemState]="systemState"
+              (trashRecycled)="getTrashRecycled($event)"
+            ></app-robot-trash-red>
+          </div>
+          <!-- GREEN -->
+          <div class="col-3"
+               #listTrashContainerGreen="cdkDropList"
+               [cdkDropListData]="listTrashDroppedGreen"
+               [cdkDropListConnectedTo]="[listTrashRandomSelected]"
+               (cdkDropListDropped)="dropGreen($event)"
+               cdkDropList>
+            <app-robot-trash-green
+              [trashDropped]="trashDroppedGreen"
+              [systemState]="systemState"
+              (trashRecycled)="getTrashRecycled($event)"
+            ></app-robot-trash-green>
+          </div>
+          <!-- BROWN -->
+          <div class="col-3"
+               #listTrashContainerBrown="cdkDropList"
+               [cdkDropListData]="listTrashDroppedBrown"
+               [cdkDropListConnectedTo]="[listTrashRandomSelected]"
+               (cdkDropListDropped)="dropBrown($event)"
+               cdkDropList>
+            <app-robot-trash-brown
+              [trashDropped]="trashDroppedBrown"
+              [systemState]="systemState"
+              (trashRecycled)="getTrashRecycled($event)"
+            ></app-robot-trash-brown>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--------------------------------------->
+    <!----------- FIXED BOTTOM -------------->
+    <div class="container-fluid container-xl fixed-bottom bg-transparent">
+      <!-- GET RANDOM TRASH -->
+      <div class="row mb-3">
+        <div class="col-12 text-center">
+          <ul
+            #listTrashRandomSelected="cdkDropList"
+            [cdkDropListData]="trashRandomSelected"
+            [cdkDropListConnectedTo]="[listTrashContainerBlack, listTrashContainerRed, listTrashContainerGreen, listTrashContainerBrown]"
+            (cdkDropListDropped)="drop($event)"
+            class="list-group list-group-horizontal mb-3"
+            cdkDropList>
+
+            <li cdkDrag class="list-group-item m-auto border-0 bg-transparent"
+                *ngFor="let item of trashRandomSelected">
+              <img class="cursor-pointer" ngSrc="{{item.imageUrl}}" alt="{{item.description}}" height="100"
+                   width="100">
+              <p class="fw-medium mb-0">{{item.description}}</p>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="row">
+        <ng-container *ngIf="systemState === 'standby'">
+          <div class="col-12 text-center">
+            <div class="text-center mb-3">
+              <button
+                (click)="getWelcome()"
+                type="button"
+                class="btn btn-success rounded-circle ps-3 pe-3"
+              >
+                <i class="bi bi-play-fill fs-1"></i>
+              </button>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="systemState === 'recycling'">
+          <div class="col-12 d-flex justify-content-center">
+            <div class="text-center me-5">
+              <img
+                (click)="getRandomTrash()"
+                class="cursor-pointer"
+                ngSrc="{{trashCan}}"
+                alt=""
+                height="96"
+                width="96"
+              >
+              <p class="fs-6 fw-medium">Seleccionar Basura</p>
+            </div>
+
+            <div class="text-center">
+              <img
+                (click)="getFinish()"
+                class="cursor-pointer"
+                ngSrc="{{exitButton}}"
+                alt=""
+                height="96"
+                width="96"
+              >
+              <p class="fs-6 fw-medium">Terminar</p>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+
+  </div>
+</ng-container>

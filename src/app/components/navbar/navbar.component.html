@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-md navbar-light bg-body-tertiary">
+  <div class="container-fluid container-xl">
+
+    <span class="navbar-brand d-flex justify-content-start">
+        <img class="me-2" ngSrc="{{image1}}" alt="" height="32" width="32">
+        <p class="fw-medium text-success text-uppercase mb-0">Ecobot</p>
+    </span>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      aria-controls="navbarContent"
+      [attr.aria-expanded]="!collapsed"
+      aria-label="Toggle navigation"
+      (click)="collapsed = !collapsed"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse" [class.collapse]="collapsed" id="navbarContent">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link" tabindex="0" role="button" [routerLink]="'/robot'">Inicio</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" tabindex="0" role="button" [routerLink]="'/ranking'">Ranking</a>
+        </li>
+
+        <li class="nav-item" ngbDropdown>
+          <a class="nav-link" tabindex="0" ngbDropdownToggle id="navbarDropdownUser" role="button">
+            <img class="rounded-circle me-2" ngSrc="{{firebaseUser.photoURL}}" height="32" width="32"
+                 alt="{{firebaseUser.displayName}}">
+          </a>
+          <div ngbDropdownMenu aria-labelledby="navbarDropdownUser" class="dropdown-menu dropdown-menu-end">
+            <a ngbDropdownItem href="#" (click)="logout()">Cerrar sesión</a>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
